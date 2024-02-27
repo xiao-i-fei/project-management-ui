@@ -161,6 +161,20 @@ export const dynamicRoutes = [
         meta: { title: '修改生成配置', activeMenu: '/tool/gen' }
       }
     ]
+  },
+  {
+    path: '/api/interface',
+    component: Layout,
+    hidden: true,
+    permissions: ['api:info:check'],
+    children: [
+      {
+        path: 'check/:interfaceId(\\d+)',
+        component: () => import('@/views/api/info/check'),
+        name: 'CheckInterface',
+        meta: { title: '查看接口详细信息', activeMenu: '/api/management/info' }
+      }
+    ]
   }
 ]
 

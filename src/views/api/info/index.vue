@@ -102,9 +102,9 @@
       <el-table-column label="接口名称" align="center" prop="name" />
       <el-table-column label="描述" align="center" prop="description" />
       <el-table-column label="接口地址" align="center" prop="url" />
-      <el-table-column label="请求参数" align="center" prop="requestParams" />
-      <el-table-column label="请求头" align="center" prop="requestHeader" />
-      <el-table-column label="响应头" align="center" prop="responseHeader" />
+      <!--<el-table-column label="请求参数" align="center" prop="requestParams" />-->
+      <!--<el-table-column label="请求头" align="center" prop="requestHeader" />-->
+      <!--<el-table-column label="响应头" align="center" prop="responseHeader" />-->
       <el-table-column label="接口状态" align="center" prop="status">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.api_interface_status" :value="scope.row.status"/>
@@ -124,6 +124,13 @@
             @click="handleUpdate(scope.row)"
             v-hasPermi="['api:info:edit']"
           >修改</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-view"
+            @click="handleCheck(scope.row.id)"
+            v-hasPermi="['api:info:edit']"
+          >查看</el-button>
           <el-button
             size="mini"
             type="text"
@@ -156,13 +163,13 @@
           <el-input v-model="form.url" placeholder="请输入接口地址" />
         </el-form-item>
         <el-form-item label="请求参数">
-          <editor v-model="form.requestParams" :min-height="192"/>
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="form.requestParams"/>
         </el-form-item>
         <el-form-item label="请求头">
-          <editor v-model="form.requestHeader" :min-height="192"/>
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="form.requestHeader"/>
         </el-form-item>
         <el-form-item label="响应头">
-          <editor v-model="form.responseHeader" :min-height="192"/>
+          <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="form.responseHeader"/>
         </el-form-item>
         <el-form-item label="接口状态" prop="status">
           <el-radio-group v-model="form.status">
@@ -321,6 +328,9 @@ export default {
         this.open = true;
         this.title = "修改接口信息";
       });
+    },
+    handleCheck(interfaceId){
+      this.$router.push({ path: `/api/interface/check/${interfaceId}` });
     },
     /** 提交按钮 */
     submitForm() {

@@ -42,3 +42,14 @@ export function delInfo(id) {
     method: 'delete'
   })
 }
+
+/**
+ * 调用api接口
+ */
+export function interfaceRequest(data){
+  return request({
+    url: 'interface/user/list/search',
+    method: 'post',
+    data: data
+  })
+}
