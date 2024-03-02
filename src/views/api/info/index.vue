@@ -60,7 +60,8 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['api:info:add']"
-        >新增</el-button>
+        >新增
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -71,7 +72,8 @@
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['api:info:edit']"
-        >修改</el-button>
+        >修改
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -82,7 +84,8 @@
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['api:info:remove']"
-        >删除</el-button>
+        >删除
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -92,16 +95,17 @@
           size="mini"
           @click="handleExport"
           v-hasPermi="['api:info:export']"
-        >导出</el-button>
+        >导出
+        </el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="infoList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="接口名称" align="center" prop="name" />
-      <el-table-column label="描述" align="center" prop="description" />
-      <el-table-column label="接口地址" align="center" prop="url" />
+      <el-table-column type="selection" width="55" align="center"/>
+      <el-table-column label="接口名称" align="center" prop="name"/>
+      <el-table-column label="描述" align="center" prop="description"/>
+      <el-table-column label="接口地址" align="center" prop="url"/>
       <!--<el-table-column label="请求参数" align="center" prop="requestParams" />-->
       <!--<el-table-column label="请求头" align="center" prop="requestHeader" />-->
       <!--<el-table-column label="响应头" align="center" prop="responseHeader" />-->
@@ -123,21 +127,30 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['api:info:edit']"
-          >修改</el-button>
+          >修改
+          </el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-view"
             @click="handleCheck(scope.row.id)"
             v-hasPermi="['api:info:edit']"
-          >查看</el-button>
+          >查看
+          </el-button>
+
+          <el-button size="mini" type="text" icon="el-icon-view"
+                     @click="handleSubscription(scope.row.id)" v-hasPermi="['api:userInterfaceInfo:subscription']"
+          >订阅
+          </el-button>
+
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
             v-hasPermi="['api:info:remove']"
-          >删除</el-button>
+          >删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -154,13 +167,13 @@
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="名称" prop="name">
-          <el-input v-model="form.name" placeholder="请输入名称" />
+          <el-input v-model="form.name" placeholder="请输入名称"/>
         </el-form-item>
         <el-form-item label="描述" prop="description">
-          <el-input v-model="form.description" placeholder="请输入描述" />
+          <el-input v-model="form.description" placeholder="请输入描述"/>
         </el-form-item>
         <el-form-item label="接口地址" prop="url">
-          <el-input v-model="form.url" placeholder="请输入接口地址" />
+          <el-input v-model="form.url" placeholder="请输入接口地址"/>
         </el-form-item>
         <el-form-item label="请求参数">
           <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="form.requestParams"/>
@@ -177,7 +190,8 @@
               v-for="dict in dict.type.api_interface_status"
               :key="dict.value"
               :label="parseInt(dict.value)"
-            >{{dict.label}}</el-radio>
+            >{{ dict.label }}
+            </el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="请求类型" prop="method">
@@ -200,10 +214,11 @@
 </template>
 
 <script>
-import { listInfo, getInfo, delInfo, addInfo, updateInfo } from "@/api/api/info";
+import { listInfo, getInfo, delInfo, addInfo, updateInfo } from '@/api/api/info'
+import { handleSubscription } from '@/api/api/userInterfaceInfo'
 
 export default {
-  name: "Info",
+  name: 'Info',
   dicts: ['api_interface_status', 'method_request_type'],
   data() {
     return {
@@ -222,7 +237,7 @@ export default {
       // 接口信息表格数据
       infoList: [],
       // 弹出层标题
-      title: "",
+      title: '',
       // 是否显示弹出层
       open: false,
       // 查询参数
@@ -236,47 +251,47 @@ export default {
         requestHeader: null,
         responseHeader: null,
         status: null,
-        method: null,
+        method: null
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
         name: [
-          { required: true, message: "名称不能为空", trigger: "blur" }
+          { required: true, message: '名称不能为空', trigger: 'blur' }
         ],
         url: [
-          { required: true, message: "接口地址不能为空", trigger: "blur" }
+          { required: true, message: '接口地址不能为空', trigger: 'blur' }
         ],
         requestParams: [
-          { required: true, message: "请求参数不能为空", trigger: "blur" }
+          { required: true, message: '请求参数不能为空', trigger: 'blur' }
         ],
         status: [
-          { required: true, message: "接口状态不能为空", trigger: "change" }
+          { required: true, message: '接口状态不能为空', trigger: 'change' }
         ],
         method: [
-          { required: true, message: "请求类型不能为空", trigger: "change" }
-        ],
+          { required: true, message: '请求类型不能为空', trigger: 'change' }
+        ]
       }
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   methods: {
     /** 查询接口信息列表 */
     getList() {
-      this.loading = true;
+      this.loading = true
       listInfo(this.queryParams).then(response => {
-        this.infoList = response.rows;
-        this.total = response.total;
-        this.loading = false;
-      });
+        this.infoList = response.rows
+        this.total = response.total
+        this.loading = false
+      })
     },
     // 取消按钮
     cancel() {
-      this.open = false;
-      this.reset();
+      this.open = false
+      this.reset()
     },
     // 表单重置
     reset() {
@@ -294,73 +309,79 @@ export default {
         createTime: null,
         updateTime: null,
         isDelete: null
-      };
-      this.resetForm("form");
+      }
+      this.resetForm('form')
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
+      this.queryParams.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.resetForm('queryForm')
+      this.handleQuery()
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
       this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
+      this.single = selection.length !== 1
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加接口信息";
+      this.reset()
+      this.open = true
+      this.title = '添加接口信息'
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
-      this.reset();
+      this.reset()
       const id = row.id || this.ids
       getInfo(id).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改接口信息";
-      });
+        this.form = response.data
+        this.open = true
+        this.title = '修改接口信息'
+      })
     },
-    handleCheck(interfaceId){
-      this.$router.push({ path: `/api/interface/check/${interfaceId}` });
+    handleCheck(interfaceId) {
+      this.$router.push({ path: `/api/interface/check/${interfaceId}` })
+    },
+    handleSubscription(interfaceId) {
+      handleSubscription(interfaceId).then(response => {
+        this.$modal.msgSuccess(response.msg)
+      })
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
+      this.$refs['form'].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
             updateInfo(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess('修改成功')
+              this.open = false
+              this.getList()
+            })
           } else {
             addInfo(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess('新增成功')
+              this.open = false
+              this.getList()
+            })
           }
         }
-      });
+      })
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const ids = row.id || this.ids;
+      const ids = row.id || this.ids
       this.$modal.confirm('是否确认删除接口信息编号为"' + ids + '"的数据项？').then(function() {
-        return delInfo(ids);
+        return delInfo(ids)
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+        this.getList()
+        this.$modal.msgSuccess('删除成功')
+      }).catch(() => {
+      })
     },
     /** 导出按钮操作 */
     handleExport() {
@@ -369,5 +390,5 @@ export default {
       }, `info_${new Date().getTime()}.xlsx`)
     }
   }
-};
+}
 </script>

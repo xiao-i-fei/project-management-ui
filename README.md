@@ -20,5 +20,5 @@ yarn run dev
 yarn run build:stage
 
 # 构建生产环境
-yarn run build:prod
+ 
 ```

@@ -48,7 +48,7 @@ export function delInfo(id) {
  */
 export function interfaceRequest(data){
   return request({
-    url: 'interface/user/list/search',
+    url: 'interface/test/request',
     method: 'post',
     data: data
   })
