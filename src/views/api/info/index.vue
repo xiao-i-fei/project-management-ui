@@ -134,7 +134,7 @@
             type="text"
             icon="el-icon-view"
             @click="handleCheck(scope.row.id)"
-            v-hasPermi="['api:info:edit']"
+            v-hasPermi="['api:info:check']"
           >查看
           </el-button>
 
