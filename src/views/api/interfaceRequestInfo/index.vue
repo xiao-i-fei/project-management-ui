@@ -8,12 +8,12 @@
         </el-row>
 
         <el-row :gutter="32">
-            <el-col :xs="24" :sm="24" :lg="8">
+            <el-col :xs="24" :sm="24" :lg="10">
                 <div class="chart-wrapper">
                     <pie-chart :pie-chart-data="pieChartData"/>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="24" :lg="16">
+            <el-col :xs="24" :sm="24" :lg="14">
                 <div class="chart-wrapper">
                     <bar-chart :chart-data="barChartData"/>
                 </div>

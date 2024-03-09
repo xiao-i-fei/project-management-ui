@@ -106,6 +106,11 @@ export default {
   created() {
     this.getCode();
     this.getCookie();
+    // 初始化测试账号
+    if (process.env.VUE_APP_HOME_PAGE === "api" && (!this.loginForm.username || !this.loginForm.password)) {
+      this.loginForm.username = "api_test";
+      this.loginForm.password = "api_test";
+    }
   },
   methods: {
     getCode() {

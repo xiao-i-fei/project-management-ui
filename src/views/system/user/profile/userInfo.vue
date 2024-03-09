@@ -2,7 +2,7 @@
   <el-form ref="form" :model="form" :rules="rules" label-width="80px">
     <el-form-item label="用户昵称" prop="nickName">
       <el-input v-model="form.nickName" maxlength="30" />
-    </el-form-item> 
+    </el-form-item>
     <el-form-item label="手机号码" prop="phonenumber">
       <el-input v-model="form.phonenumber" maxlength="11" />
     </el-form-item>
@@ -16,7 +16,7 @@
       </el-radio-group>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" size="mini" @click="submit">保存</el-button>
+      <el-button v-if="!(vueAppHomePage === 'api_test')" type="primary" size="mini" @click="submit">保存</el-button>
       <el-button type="danger" size="mini" @click="close">关闭</el-button>
     </el-form-item>
   </el-form>
@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      vueAppHomePage: this.$store.state.user.name,
       form: {},
       // 表单校验
       rules: {
