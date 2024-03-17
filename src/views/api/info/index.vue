@@ -48,6 +48,7 @@
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-link style="margin-left: 10px" type="primary" href="https://github.com/xiao-i-fei/customer-starter">SDK下载</el-link>
       </el-form-item>
     </el-form>
 

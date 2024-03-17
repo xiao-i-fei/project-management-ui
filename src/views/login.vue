@@ -56,7 +56,7 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>备案信息待填写</span>
+      <a href="https://beian.miit.gov.cn/">湘ICP备2021009397号</a>
     </div>
   </div>
 </template>
